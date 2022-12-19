@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.shazdroid.spacexapp.viewmodels.RocketViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.shazdroid.spacexapp.view.fragments.rocket_list.RocketListFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F2F2F2"
+        tools:context=".view.fragments.rocket_list.RocketListFragment">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/icon_rocket"
+            android:drawablePadding="12dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:padding="10dp"
+            android:text="Rocket List"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/loading_rocket"
+            android:padding="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_rawRes="@raw/astronaut_no_internet"
+            android:padding="50dp"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="@{viewModel.isException() ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_internet_connection"
+            android:textColor="@color/black"
+            android:gravity="top|center_horizontal"
+            android:fontFamily="@font/montserrat"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:paddingBottom="100dp"
+            android:translationZ="10dp"
+            android:visibility="@{viewModel.isException() ? View.VISIBLE : View.GONE}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:text="Retry"
+            android:backgroundTint="#787878"
+            android:background="@drawable/button_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:onClick="@{() -> fragment.fetchRocket()}"
+            android:visibility="@{viewModel.isException() ? View.VISIBLE : View.GONE}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            onItemClickListener="@{viewModel::onItemClick}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:listitem="@layout/item_layout_rocket"
+            android:visibility="@{viewModel.isLoading() ? (viewModel.isException() ? View.GONE : View.VISIBLE) : View.VISIBLE}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

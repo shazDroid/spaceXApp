@@ -1,0 +1,107 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+ext {
+    // dependencies version's
+    retrofitVersion = "2.9.0"
+    gsonConvertor = "2.9.0"
+    okHttp = "4.9.0"
+    kotlinCoroutines = "1.6.1"
+    coroutineLifecycleScope = "2.5.1"
+    glide = "4.12.0"
+    viewModelDelegate = "1.6.1"
+    dagger = "2.44"
+    hiltCompiler = "1.0.0"
+    roomVersion = "2.4.3"
+    lottieAnimations = "5.0.3"
+    navigation = "2.5.3"
+    viewModelExt = "2.5.1"
+}
+
+android {
+    namespace 'com.shazdroid.spacexapp'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.shazdroid.spacexapp"
+        minSdk 29
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding = true
+    }
+    packagingOptions {
+        pickFirst  '**'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$gsonConvertor"
+    implementation "com.squareup.okhttp3:okhttp:$okHttp"
+
+    // Coroutine
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines"
+
+    // Coroutine lifecycle
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutineLifecycleScope"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$coroutineLifecycleScope"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide"
+
+    // Viewmodel delegate
+    implementation "androidx.activity:activity-ktx:$viewModelDelegate"
+
+    // Dagger hilt
+    implementation "com.google.dagger:hilt-android:$dagger"
+    implementation "com.google.dagger:hilt-android-compiler:$dagger"
+    kapt "androidx.hilt:hilt-compiler:$hiltCompiler"
+
+    // Room
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // Lottie animations
+    implementation "com.airbnb.android:lottie:$lottieAnimations"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-runtime-ktx:$navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigation"
+
+    // Lifecycle viewmodel extensions
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelExt"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelExt"
+    kapt "androidx.lifecycle:lifecycle-common-java8:$viewModelExt"
+}

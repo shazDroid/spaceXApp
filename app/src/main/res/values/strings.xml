@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SpaceX App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="country_icon">Country Icon</string>
+    <string name="engine_icon">Engine Icon</string>
+    <string name="rocket_name">ROCKET NAME</string>
+    <string name="rocket_app">Rocket App</string>
+    <string name="no_internet_connection">No Internet connection\nPlease check your network</string>
+</resources>
